@@ -43,9 +43,12 @@
     </div>
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        {% for key,value in nav_urls.items %}
-          <li class="active"><a href="javascript:">{{ value }}<span class="sr-only">(current)</span></a></li>
-          <li><a href="{{ key }}">{{ value }}</a></li>
+        {% for key,value in poems.items %}
+          {%  ifequal key curr_poem %}
+            <li class="active"><a href="javascript:">{{ value }}<span class="sr-only">(current)</span></a></li>
+          {% else %}
+            <li><a href="{{ key }}">{{ value }}</a></li>
+          {% endifequal %}
         {% endfor %}
       </ul>
       <ul class="nav navbar-nav navbar-right">
