@@ -1,0 +1,37 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>犯二？重命名？</title>
+  <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}?v=1" />
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      background: #040404 url({% static 'images/homepage.jpg' %}) center -88px no-repeat;
+    }
+
+  </style>
+
+  <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div style="position:absolute;bottom: 88px;text-align: center;width: 100%;">
+  <a href="/poem/" class="btn btn-info" role="button" style="margin-right: 88px;">不嘛！伦家就是想看</a>
+  <a href="/poem/" class="btn btn-danger" role="button">羞羞的离开</a>
+</div>
+
+</body>
+</html>

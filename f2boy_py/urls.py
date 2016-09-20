@@ -17,10 +17,14 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.generic.base import RedirectView
 
+from apps.homepage.views import homepage
+
 from f2boy_py import settings
 
+admin.autodiscover()
+
 urlpatterns = [
-    url(r'^$', RedirectView.as_view(url='/poem/')),
+    url(r'^$', homepage),
     url(r'^poem/', include('apps.poem.urls')),
     url(r'^polls/', include('polls.urls')),
     url(r'^admin/', admin.site.urls),

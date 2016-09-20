@@ -56,8 +56,10 @@ ROOT_URLCONF = 'f2boy_py.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'apps/poem/templates')]
-        ,
+        'DIRS': [
+            os.path.join(BASE_DIR, 'apps/poem/templates'),
+            os.path.join(BASE_DIR, 'apps/homepage/templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
