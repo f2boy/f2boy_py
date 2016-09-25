@@ -55,6 +55,10 @@ body {
     -o-transition: -o-transform .15s linear;
     -ms-transition: -ms-transform .15s linear;
     transition: transform .15s linear;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
     /*为后面的胶纸效果设定一个参照值*/
     position: relative;
     /*实现一个四方形的标签纸效果*/
