@@ -55,10 +55,10 @@ body {
     -o-transition: -o-transform .15s linear;
     -ms-transition: -ms-transform .15s linear;
     transition: transform .15s linear;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    -moz-backface-visibility: hidden;
-    -ms-backface-visibility: hidden;
+    /*backface-visibility: hidden;*/
+    /*-webkit-backface-visibility: hidden;*/
+    /*-moz-backface-visibility: hidden;*/
+    /*-ms-backface-visibility: hidden;*/
     /*为后面的胶纸效果设定一个参照值*/
     position: relative;
     /*实现一个四方形的标签纸效果*/
@@ -160,13 +160,13 @@ body {
     /*改变阴影效果*/
     -moz-box-shadow: 10px 10px 7px rgba(0, 0, 0, 0.7);
     -webkit-box-shadow: 10px 10px 7px rgba(0, 0, 0, 0.7);
-    box-shadow: 10px 10px 7px rgba(0, 0, 0, 0.7);
+    box-shadow: 10px 10px 7px  rgba(0, 0, 0, 0.7);
     /*使用transform中的scale将便签纸放大*/
-    -moz-transform: scale(1.25);
-    -webkit-transform: scale(1.25);
-    -o-transform: scale(1.25);
-    -ms-transform: scale(1.25);
-    transform: scale(1.25);
+    /*-moz-transform: scale(1.25);*/
+    /*-webkit-transform: scale(1.25);*/
+    /*-o-transform: scale(1.25);*/
+    /*-ms-transform: scale(1.25);*/
+    /*transform: scale(1.25);*/
     position: relative;
     z-index: 5;
 }
