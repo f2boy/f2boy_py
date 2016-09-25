@@ -3,15 +3,89 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <meta name="Description" content="范二青年,范二少年,范二男孩,范二boy,f2boy"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="Description" content="范二青年,范二少年,范二男孩,范二boy,f2boy" />
   <title>留言墙 - 范二男孩_范二青年</title>
-  <link rel="shortcut icon" type="image/x-icon" href="http://odwsp46yw.bkt.clouddn.com/images/favicon.ico?v=2"/>
+  <link rel="shortcut icon" type="image/x-icon" href="http://odwsp46yw.bkt.clouddn.com/images/favicon.ico?v=2" />
   <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <link rel="stylesheet" href="{% static 'css/message.css' %}">
-  <link href='http://fonts.googleapis.com/css?family=Mr+Bedfort|Eater' rel='stylesheet' type='text/css'>
   <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
   <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    (function ($) {
+      $.fn.hoverDelay = function (options) {
+        var defaults = {
+          hoverDuring: 200,
+          outDuring: 300,
+          hoverEvent: function () {
+            $.noop();
+          },
+          outEvent: function () {
+            $.noop();
+          }
+        };
+        var sets = $.extend(defaults, options || {});
+        var hoverTimer, outTimer;
+        return $(this).each(function () {
+          $(this).hover(function () {
+            clearTimeout(outTimer);
+            hoverTimer = setTimeout(sets.hoverEvent, sets.hoverDuring);
+          }, function () {
+            clearTimeout(hoverTimer);
+            outTimer = setTimeout(sets.outEvent, sets.outDuring);
+          });
+        });
+      }
+    })(jQuery);
+
+{#    $(document).ready(function () {#}
+{#      var oldCsses = {};#}
+{#      $(".f2-messages ul li a").each(function () {#}
+{#        var $msg = $(this);#}
+{#        $msg.hoverDelay({#}
+{#          hoverEvent: function () {#}
+{#            console.log($msg.index())#}
+{#            var old_box_shadow = $msg.css('box-shadow');#}
+{#            var old_transform = $msg.css('transform');#}
+{#            var old_zindex = $msg.css('z-index');#}
+{#            oldCsses[$msg.index()] = {box_shadow: old_box_shadow, transform: old_transform, zindex: old_zindex};#}
+{##}
+{#            var new_box_shadow = '10px 10px 7px rgba(0, 0, 0, 0.7)';#}
+{#            var new_transform = 'scale(1.25)';#}
+{#            var new_zindex = 5;#}
+{##}
+{#            console.log('cross here');#}
+{#            $msg.css({'-moz-box-shadow': new_box_shadow});#}
+{#            $msg.css({'-webkit-box-shadow': new_box_shadow});#}
+{#            $msg.css({'box-shadow': new_box_shadow});#}
+{#            $msg.css({'-moz-transform': new_transform});#}
+{#            $msg.css({'-webkit-transform': new_transform});#}
+{#            $msg.css({'-o-transform': new_transform});#}
+{#            $msg.css({'-ms-transform': new_transform});#}
+{#            $msg.css({'transform': new_transform});#}
+{#            $msg.css({'z-index': new_zindex});#}
+{#          },#}
+{#          outEvent: function () {#}
+{#            console.log('live here');#}
+{#            var oldCss = oldCsses[$msg.index()];#}
+{##}
+{#            if(oldCss){#}
+{#            $msg.css({'-moz-box-shadow': oldCss.box_shadow});#}
+{#            $msg.css({'-webkit-box-shadow': oldCss.box_shadow});#}
+{#            $msg.css({'box-shadow': oldCss.box_shadow});#}
+{#            $msg.css({'-moz-transform': oldCss.transform});#}
+{#            $msg.css({'-webkit-transform': oldCss.transform});#}
+{#            $msg.css({'-o-transform': oldCss.transform});#}
+{#            $msg.css({'-ms-transform': oldCss.transform});#}
+{#            $msg.css({'transform': oldCss.transform});#}
+{#            $msg.css({'z-index': oldCss.zindex});#}
+{#          }}#}
+{#        });#}
+{#      });#}
+{##}
+{#    })#}
+
+  </script>
 </head>
 <body>
 <nav class="navbar navbar-default">
