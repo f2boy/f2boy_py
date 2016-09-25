@@ -9,4 +9,4 @@ def wall(request):
 def add(request):
     nickname = request.POST['nickname']
     message = request.POST['message']
-    return HttpResponse("Hello, " + nickname + ". 你的留言：" + message)
+    return HttpResponse("Hello, " + nickname + "！你的留言：" + message)

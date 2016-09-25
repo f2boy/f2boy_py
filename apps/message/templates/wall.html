@@ -274,7 +274,7 @@
       <div class="modal-body">
         <form id="inputForm" action="{% url 'message:add' %}" method="post">{% csrf_token %}
           <div class="form-group">
-            <label for="nickname">您的称呼：</label>
+            <label for="nickname">你的昵称：</label>
             <input type="text" class="form-control" id="nickname" name="nickname" placeholder="潇湘妃子" maxlength="12" />
           </div>
           <div class="form-group">
@@ -299,9 +299,11 @@
     $('#submit_btn').click(function () {
       $('#inputForm').ajaxSubmit({
         beforeSubmit: checkForm,
-        dataType: "json",
+        dataType: "html",
         success: function (msg) {
-          alert(msg)
+          console.log(msg);
+          $('#myModal').modal('hide');
+          alert(msg);
         }
       });
     });
@@ -309,7 +311,23 @@
   });
 
   var checkForm = function () {
-    return true;
+    var result = true;
+
+    if ($("#nickname").val() == '') {
+      $("#nickname").parent().addClass("has-error");
+      result = false;
+    } else {
+      $("#nickname").parent().removeClass("has-error");
+    }
+
+    if ($("#message").val() == '') {
+      $("#message").parent().addClass("has-error");
+      result = false;
+    } else {
+      $("#message").parent().removeClass("has-error");
+    }
+
+    return result;
   }
 
 </script>
