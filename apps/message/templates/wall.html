@@ -9,83 +9,6 @@
   <link rel="shortcut icon" type="image/x-icon" href="http://odwsp46yw.bkt.clouddn.com/images/favicon.ico?v=2" />
   <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <link rel="stylesheet" href="{% static 'css/message.css' %}">
-  <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-  <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  <script type="text/javascript">
-    (function ($) {
-      $.fn.hoverDelay = function (options) {
-        var defaults = {
-          hoverDuring: 200,
-          outDuring: 300,
-          hoverEvent: function () {
-            $.noop();
-          },
-          outEvent: function () {
-            $.noop();
-          }
-        };
-        var sets = $.extend(defaults, options || {});
-        var hoverTimer, outTimer;
-        return $(this).each(function () {
-          $(this).hover(function () {
-            clearTimeout(outTimer);
-            hoverTimer = setTimeout(sets.hoverEvent, sets.hoverDuring);
-          }, function () {
-            clearTimeout(hoverTimer);
-            outTimer = setTimeout(sets.outEvent, sets.outDuring);
-          });
-        });
-      }
-    })(jQuery);
-
-{#    $(document).ready(function () {#}
-{#      var oldCsses = {};#}
-{#      $(".f2-messages ul li a").each(function () {#}
-{#        var $msg = $(this);#}
-{#        $msg.hoverDelay({#}
-{#          hoverEvent: function () {#}
-{#            console.log($msg.index())#}
-{#            var old_box_shadow = $msg.css('box-shadow');#}
-{#            var old_transform = $msg.css('transform');#}
-{#            var old_zindex = $msg.css('z-index');#}
-{#            oldCsses[$msg.index()] = {box_shadow: old_box_shadow, transform: old_transform, zindex: old_zindex};#}
-{##}
-{#            var new_box_shadow = '10px 10px 7px rgba(0, 0, 0, 0.7)';#}
-{#            var new_transform = 'scale(1.25)';#}
-{#            var new_zindex = 5;#}
-{##}
-{#            console.log('cross here');#}
-{#            $msg.css({'-moz-box-shadow': new_box_shadow});#}
-{#            $msg.css({'-webkit-box-shadow': new_box_shadow});#}
-{#            $msg.css({'box-shadow': new_box_shadow});#}
-{#            $msg.css({'-moz-transform': new_transform});#}
-{#            $msg.css({'-webkit-transform': new_transform});#}
-{#            $msg.css({'-o-transform': new_transform});#}
-{#            $msg.css({'-ms-transform': new_transform});#}
-{#            $msg.css({'transform': new_transform});#}
-{#            $msg.css({'z-index': new_zindex});#}
-{#          },#}
-{#          outEvent: function () {#}
-{#            console.log('live here');#}
-{#            var oldCss = oldCsses[$msg.index()];#}
-{##}
-{#            if(oldCss){#}
-{#            $msg.css({'-moz-box-shadow': oldCss.box_shadow});#}
-{#            $msg.css({'-webkit-box-shadow': oldCss.box_shadow});#}
-{#            $msg.css({'box-shadow': oldCss.box_shadow});#}
-{#            $msg.css({'-moz-transform': oldCss.transform});#}
-{#            $msg.css({'-webkit-transform': oldCss.transform});#}
-{#            $msg.css({'-o-transform': oldCss.transform});#}
-{#            $msg.css({'-ms-transform': oldCss.transform});#}
-{#            $msg.css({'transform': oldCss.transform});#}
-{#            $msg.css({'z-index': oldCss.zindex});#}
-{#          }}#}
-{#        });#}
-{#      });#}
-{##}
-{#    })#}
-
-  </script>
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -106,15 +29,17 @@
 <div class="row f2-messages">
 
 <ul>
+  {% for message in message_list %}
+    <li>
+      <a href="#" data-toggle="modal" data-target="#myModal">
+        <h2>{{ message.create_time|date:"Y-m-d H:i" }}</h2>
+        <p class="msg-content">{{ message.message_content }}</p>
+        <p class="msg-author">{{ message.user_nick }}</p>
+      </a>
+    </li>
+  {% endfor %}
   <li>
-    <a href="#">
-      <h2>2016/9/18</h2>
-      <p class="msg-content">贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你</p>
-      <p class="msg-author">--梁伟东</p>
-    </a>
-  </li>
-  <li>
-    <a href="#">
+    <a href="javascript:">
       <h2>2016/9/18</h2>
       <p class="msg-content">贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你</p>
       <p class="msg-author">--梁伟东</p>
@@ -125,132 +50,6 @@
       <h2></h2>
       <p class="msg-content"></p>
       <p class="msg-author"></p>
-    </a>
-  </li>
-  <li>
-    <a href="#" data-toggle="modal" data-target="#myModal">
-      <h2></h2>
-      <p class="msg-content"></p>
-      <p class="msg-author"></p>
-    </a>
-  </li>
-  <li>
-    <a href="#">
-      <h2>2016/9/18</h2>
-      <p class="msg-content">adfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfda</p>
-      <p class="msg-author">--梁伟东</p>
-    </a>
-  </li>
-  <li>
-    <a href="#">
-      <h2>2016/9/18</h2>
-      <p class="msg-content">adfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfda</p>
-      <p class="msg-author">--梁伟东</p>
-    </a>
-  </li>
-  <li>
-    <a href="#">
-      <h2>2016/9/18</h2>
-      <p class="msg-content">贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你</p>
-      <p class="msg-author">--梁伟东</p>
-    </a>
-  </li>
-  <li>
-    <a href="#">
-      <h2>2016/9/18</h2>
-      <p class="msg-content">贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你</p>
-      <p class="msg-author">--梁伟东</p>
-    </a>
-  </li>
-  <li>
-    <a href="#">
-      <h2>2016/9/18</h2>
-      <p class="msg-content">dfdf</p>
-      <p class="msg-author">--梁伟东</p>
-    </a>
-  </li>
-  <li>
-    <a href="#">
-      <h2>2016/9/18</h2>
-      <p class="msg-content">adfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfda</p>
-      <p class="msg-author">--梁伟东</p>
-    </a>
-  </li>
-  <li>
-    <a href="#">
-      <h2>2016/9/18</h2>
-      <p class="msg-content">adfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfda</p>
-      <p class="msg-author">--梁伟东</p>
-    </a>
-  </li>
-  <li>
-    <a href="#">
-      <h2>2016/9/18</h2>
-      <p class="msg-content">贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你</p>
-      <p class="msg-author">--梁伟东</p>
-    </a>
-  </li>
-  <li>
-    <a href="#">
-      <h2>2016/9/18</h2>
-      <p class="msg-content">贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你</p>
-      <p class="msg-author">--梁伟东</p>
-    </a>
-  </li>
-  <li>
-    <a href="#">
-      <h2>2016/9/18</h2>
-      <p class="msg-content">dfdf</p>
-      <p class="msg-author">--梁伟东</p>
-    </a>
-  </li>
-  <li>
-    <a href="#">
-      <h2>2016/9/18</h2>
-      <p class="msg-content">adfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfda</p>
-      <p class="msg-author">--梁伟东</p>
-    </a>
-  </li>
-  <li>
-    <a href="#">
-      <h2>2016/9/18</h2>
-      <p class="msg-content">adfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfda</p>
-      <p class="msg-author">--梁伟东</p>
-    </a>
-  </li>
-  <li>
-    <a href="#">
-      <h2>2016/9/18</h2>
-      <p class="msg-content">贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你</p>
-      <p class="msg-author">--梁伟东</p>
-    </a>
-  </li>
-  <li>
-    <a href="#">
-      <h2>2016/9/18</h2>
-      <p class="msg-content">贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你</p>
-      <p class="msg-author">--梁伟东</p>
-    </a>
-  </li>
-  <li>
-    <a href="#">
-      <h2>2016/9/18</h2>
-      <p class="msg-content">dfdf</p>
-      <p class="msg-author">--梁伟东</p>
-    </a>
-  </li>
-  <li>
-    <a href="#">
-      <h2>2016/9/18</h2>
-      <p class="msg-content">adfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfda</p>
-      <p class="msg-author">--梁伟东</p>
-    </a>
-  </li>
-  <li>
-    <a href="#">
-      <h2>2016/9/18</h2>
-      <p class="msg-content">adfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfdaadfadfda</p>
-      <p class="msg-author">--梁伟东</p>
     </a>
   </li>
 </ul>
@@ -291,8 +90,82 @@
   </div>
 </div>
 
+<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="//oss.maxcdn.com/jquery.form/3.50/jquery.form.min.js"></script>
 <script type="text/javascript">
+  (function ($) {
+    $.fn.hoverDelay = function (options) {
+      var defaults = {
+        hoverDuring: 200,
+        outDuring: 300,
+        hoverEvent: function () {
+          $.noop();
+        },
+        outEvent: function () {
+          $.noop();
+        }
+      };
+      var sets = $.extend(defaults, options || {});
+      var hoverTimer, outTimer;
+      return $(this).each(function () {
+        $(this).hover(function () {
+          clearTimeout(outTimer);
+          hoverTimer = setTimeout(sets.hoverEvent, sets.hoverDuring);
+        }, function () {
+          clearTimeout(hoverTimer);
+          outTimer = setTimeout(sets.outEvent, sets.outDuring);
+        });
+      });
+    }
+  })(jQuery);
+
+  {#    $(document).ready(function () {#}
+  {#      var oldCsses = {};#}
+  {#      $(".f2-messages ul li a").each(function () {#}
+  {#        var $msg = $(this);#}
+  {#        $msg.hoverDelay({#}
+  {#          hoverEvent: function () {#}
+  {#            console.log($msg.index())#}
+  {#            var old_box_shadow = $msg.css('box-shadow');#}
+  {#            var old_transform = $msg.css('transform');#}
+  {#            var old_zindex = $msg.css('z-index');#}
+  {#            oldCsses[$msg.index()] = {box_shadow: old_box_shadow, transform: old_transform, zindex: old_zindex};#}
+  {##}
+  {#            var new_box_shadow = '10px 10px 7px rgba(0, 0, 0, 0.7)';#}
+  {#            var new_transform = 'scale(1.25)';#}
+  {#            var new_zindex = 5;#}
+  {##}
+  {#            console.log('cross here');#}
+  {#            $msg.css({'-moz-box-shadow': new_box_shadow});#}
+  {#            $msg.css({'-webkit-box-shadow': new_box_shadow});#}
+  {#            $msg.css({'box-shadow': new_box_shadow});#}
+  {#            $msg.css({'-moz-transform': new_transform});#}
+  {#            $msg.css({'-webkit-transform': new_transform});#}
+  {#            $msg.css({'-o-transform': new_transform});#}
+  {#            $msg.css({'-ms-transform': new_transform});#}
+  {#            $msg.css({'transform': new_transform});#}
+  {#            $msg.css({'z-index': new_zindex});#}
+  {#          },#}
+  {#          outEvent: function () {#}
+  {#            console.log('live here');#}
+  {#            var oldCss = oldCsses[$msg.index()];#}
+  {##}
+  {#            if(oldCss){#}
+  {#            $msg.css({'-moz-box-shadow': oldCss.box_shadow});#}
+  {#            $msg.css({'-webkit-box-shadow': oldCss.box_shadow});#}
+  {#            $msg.css({'box-shadow': oldCss.box_shadow});#}
+  {#            $msg.css({'-moz-transform': oldCss.transform});#}
+  {#            $msg.css({'-webkit-transform': oldCss.transform});#}
+  {#            $msg.css({'-o-transform': oldCss.transform});#}
+  {#            $msg.css({'-ms-transform': oldCss.transform});#}
+  {#            $msg.css({'transform': oldCss.transform});#}
+  {#            $msg.css({'z-index': oldCss.zindex});#}
+  {#          }}#}
+  {#        });#}
+  {#      });#}
+  {##}
+  {#    })#}
 
   $(document).ready(function () {
 

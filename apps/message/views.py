@@ -5,7 +5,17 @@ from apps.message.models import Message
 
 
 def wall(request):
-    message_list = Message.objects.order_by('-id')[:50]
+    message_list = Message.objects.order_by('-id')[:20]
+    tem_dict = {}
+    for msg in message_list:
+        if msg.paper_no not in tem_dict:
+            tem_dict[msg.paper_no] = msg
+
+    message_list = []
+    for i in range(0, 20):
+        message_list.append(tem_dict[0])
+        # message_list.append(tem_dict[i])
+
     context = {'message_list': message_list}
     return render(request, 'wall.html', context)
 

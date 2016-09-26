@@ -9,5 +9,5 @@ class Message(models.Model):
 
     message_content = models.CharField(max_length=200, null=False, blank=False)
     user_nick = models.CharField(max_length=32, null=False, blank=False)
-    create_time = models.DateTimeField('添加时间', default=timezone.now())
+    create_time = models.DateTimeField('添加时间', default=timezone.now)
     paper_no = models.IntegerField(default=0)
