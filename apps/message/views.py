@@ -12,9 +12,11 @@ def wall(request):
             tem_dict[msg.paper_no] = msg
 
     message_list = []
-    for i in range(0, 20):
-        message_list.append(tem_dict[0])
-        # message_list.append(tem_dict[i])
+    for i in range(1, 21):
+        if i in tem_dict:
+            message_list.append(tem_dict[i])
+        else:
+            message_list.append(None)
 
     context = {'message_list': message_list}
     return render(request, 'wall.html', context)

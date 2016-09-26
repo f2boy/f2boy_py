@@ -31,27 +31,21 @@
 <ul>
   {% for message in message_list %}
     <li>
-      <a href="#" data-toggle="modal" data-target="#myModal">
-        <h2>{{ message.create_time|date:"Y-m-d H:i" }}</h2>
-        <p class="msg-content">{{ message.message_content }}</p>
-        <p class="msg-author">{{ message.user_nick }}</p>
-      </a>
+      {% if message %}
+        <a href="javascript:" data-paper-no="{{ forloop.counter }}">
+          <h2>{{ message.create_time|date:"Y-m-d H:i" }}</h2>
+          <p class="msg-content">{{ message.message_content }}</p>
+          <p class="msg-author">{{ message.user_nick }}</p>
+        </a>
+      {% else %}
+        <a href="javascript:" data-paper-no="{{ forloop.counter }}" data-toggle="modal" data-target="#myModal">
+          <h2></h2>
+          <p class="msg-content"></p>
+          <p class="msg-author"></p>
+        </a>
+      {% endif %} 
     </li>
   {% endfor %}
-  <li>
-    <a href="javascript:">
-      <h2>2016/9/18</h2>
-      <p class="msg-content">贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你贤刘我爱你</p>
-      <p class="msg-author">--梁伟东</p>
-    </a>
-  </li>
-  <li>
-    <a href="#" data-toggle="modal" data-target="#myModal">
-      <h2></h2>
-      <p class="msg-content"></p>
-      <p class="msg-author"></p>
-    </a>
-  </li>
 </ul>
 
 </div>
@@ -71,7 +65,9 @@
         <h4 class="modal-title" id="myModalLabel">提交留言</h4>
       </div>
       <div class="modal-body">
-        <form id="inputForm" action="{% url 'message:add' %}" method="post">{% csrf_token %}
+        <form id="inputForm" action="{% url 'message:add' %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" id="paper_no" name="paper_no" />
           <div class="form-group">
             <label for="nickname">你的昵称：</label>
             <input type="text" class="form-control" id="nickname" name="nickname" placeholder="潇湘妃子" maxlength="12" />
@@ -168,6 +164,10 @@
   {#    })#}
 
   $(document).ready(function () {
+
+    $('.f2-messages ul a').click(function () {
+      $('#paper_no').val($(this).data('paper-no'));
+    });
 
     $('#submit_btn').click(function () {
       $('#inputForm').ajaxSubmit({
