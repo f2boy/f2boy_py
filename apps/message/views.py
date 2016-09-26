@@ -1,5 +1,6 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 
 from apps.message.models import Message
 
@@ -29,4 +30,5 @@ def add(request):
     q = Message(message_content=message, user_nick=nickname, paper_no=paper_no)
     q.save()
 
-    return HttpResponse("Hello, " + nickname + "！你的留言：" + message)
+    return HttpResponseRedirect(reverse('message:index'))
+    # return HttpResponse("Hello, " + nickname + "！你的留言：" + message)

@@ -170,15 +170,16 @@
     });
 
     $('#submit_btn').click(function () {
-      $('#inputForm').ajaxSubmit({
-        beforeSubmit: checkForm,
-        dataType: "html",
-        success: function (msg) {
-          console.log(msg);
-          $('#myModal').modal('hide');
-          alert(msg);
-        }
-      });
+      $('#inputForm').submit();
+{#      $('#inputForm').ajaxSubmit({#}
+{#        beforeSubmit: checkForm,#}
+{#        dataType: "html",#}
+{#        success: function (msg) {#}
+{#          console.log(msg);#}
+{#          $('#myModal').modal('hide');#}
+{#          alert(msg);#}
+{#        }#}
+{#      });#}
     });
 
   });
