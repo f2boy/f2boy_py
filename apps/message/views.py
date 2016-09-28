@@ -27,6 +27,9 @@ def add(request):
     nickname = request.POST['nickname']
     message = request.POST['message']
     paper_no = request.POST['paper_no']
+    nickname = nickname.replace('ۖ', '')
+    message = message.replace('ۖ', '')
+
     q = Message(message_content=message, user_nick=nickname, paper_no=paper_no)
     q.save()
 
