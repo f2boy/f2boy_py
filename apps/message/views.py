@@ -6,7 +6,8 @@ from apps.message.models import Message
 
 
 def wall(request):
-    message_list = Message.objects.order_by('-id')[:20]
+    # 只显示前18条
+    message_list = Message.objects.order_by('-id')[:18]
     tem_dict = {}
     for msg in message_list:
         if msg.paper_no not in tem_dict:
