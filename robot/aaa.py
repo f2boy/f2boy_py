@@ -53,7 +53,7 @@ def getHistory(company):
         print(data)
         result.append(data)
 
-    fo = open('/Users/xy/Desktop/stock/' + company.name + '.txt', 'w')
+    fo = open('/Users/xy/Desktop/stock/' + company.name + '.json', 'w')
     fo.write(json.dumps(result))
     fo.close()
     print('抓取{}公司数据结束，文件位置：{}'.format(company.name, fo.name))
@@ -63,3 +63,5 @@ if __name__ == '__main__':
     for c in Company:
         getHistory(c)
         time.sleep(2)
+
+        # todo 超时重试
