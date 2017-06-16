@@ -1,23 +1,31 @@
 import json
+import os
 import re
 import time
 import urllib.parse
 import urllib.request
 from enum import Enum
 
+# file_dir = 'd:/'
+# file_dir = '/Users/xy/Desktop'
+file_dir = '/home/tmp'
+
 
 class Company(Enum):
-    jd = 'jd'
     ali = 'baba'
+    jd = 'jd'
     momo = 'momo'
     weibo = 'wb'
     snap = 'snap'
     liebao = 'cmcm'
     twitter = 'twtr'
     yy = 'yy'
+    athm = 'athm'
+    sohu = 'sohu'
+    wuba = 'wuba'
 
 
-def getHistory(company):
+def get_history(company):
     print()
     print('开始抓取{}公司数据'.format(company.name))
     url = 'http://www.nasdaq.com/symbol/' + company.value + '/historical'
@@ -27,11 +35,8 @@ def getHistory(company):
     html = response.read().decode('utf-8')
     html = html.replace('\n', '').replace('\r', '').replace('\t', '').replace('\\', '')
 
-    # html = '<div id="quotes_content_left_pnlAJAX">            <h3 class="table-headtag">                Results for: 5 Days, From 05-JUN-2017  TO 09-JUN-2017             </h3>            <table>                <thead>                    <tr>                        <th>Date</th>                        <th>Open</th>                        <th>                            <a href="javascript:void(0)" class="tt show-link" id="high" onmouseover="showDelayedToolTip(\'high\')" onmouseout="hideToolTip(\'high\')">                                High                                <span class="tooltipLG">                                    <span class="topLG"></span>                                    <span class="middleLG">                                        "High" is the highest sales price the stock has achieved during the regular trading hours, the intra-day high.                                    </span>                                    <span class="bottomLG"></span>                                </span>                            </a>                        </th>                        <th>                            <a href="javascript:void(0)" class="tt show-link" id="low" onmouseover="showDelayedToolTip(\'low\')" onmouseout="hideToolTip(\'low\')">                                Low                                <span class="tooltipLG">                                    <span class="topLG"></span>                                    <span class="middleLG">                                        "Low" is the lowest sales price the stock has fallen to during the regular trading hours, the intra-day low.                                    </span>                                    <span class="bottomLG"></span>                                </span>                            </a>                        </th>                        <th>                            <a href="javascript:void(0)" class="tt show-link" id="close_last" onmouseover="showDelayedToolTip(\'close_last\')" onmouseout="hideToolTip(\'close_last\')">                                Close / Last                                <span class="tooltipLG">                                    <span class="topLG"></span>                                    <span class="middleLG">                                        "Close" is the period at the end of the trading session. Sometimes used to refer to closing price.                                    </span>                                    <span class="bottomLG"></span>                                </span>                            </a>                        </th>                        <th>                            <a href="javascript:void(0)" class="tt show-link" id="volume" onmouseover="showDelayedToolTip(\'volume\')" onmouseout="hideToolTip(\'volume\')">                                Volume                                <span class="tooltipLG">                                    <span class="topLG"></span>                                    <span class="middleLG">                                        "Volume" The closing daily official volumes represented graphically for each trading day.                                    </span>                                    <span class="bottomLG"></span>                                </span>                            </a>                        </th>                    </tr>                </thead>                <tbody>                    <tr>                        <td>                                                    </td>                        <td>                                                    </td>                        <td>                                                    </td>                        <td>                                                    </td>                        <td>                                                    </td>                        <td>                                                    </td>                    </tr>                                                <tr>                                <td>                                    06/09/2017                                </td>                                <td>                                    155.19                                </td>                                <td>                                    155.19                                </td>                                <td>                                    146.02                                </td>                                <td>                                    148.98                                </td>                                <td>                                    64,782,910                                </td>                            </tr>                                                    <tr>                                <td>                                    06/08/2017                                </td>                                <td>                                    155.25                                </td>                                <td>                                    155.54                                </td>                                <td>                                    154.4                                </td>                                <td>                                    154.99                                </td>                                <td>                                    21,144,040                                </td>                            </tr>                                                    <tr>                                <td>                                    06/07/2017                                </td>                                <td>                                    155.02                                </td>                                <td>                                    155.98                                </td>                                <td>                                    154.48                                </td>                                <td>                                    155.37                                </td>                                <td>                                    21,017,560                                </td>                            </tr>                                                    <tr>                                <td>                                    06/06/2017                                </td>                                <td>                                    153.9                                </td>                                <td>                                    155.81                                </td>                                <td>                                    153.78                                </td>                                <td>                                    154.45                                </td>                                <td>                                    26,591,850                                </td>                            </tr>                                                    <tr>                                <td>                                    06/05/2017                                </td>                                <td>                                    154.34                                </td>                                <td>                                    154.45                                </td>                                <td>                                    153.46                                </td>                                <td>                                    153.93                                </td>                                <td>                                    25,277,680                                </td>                            </tr>                                        </tbody>            </table>        </div>'
-
     content = re.search('<tbody>(.*)</tbody>', html).group(1).replace(' ', '')
-    ss = re.findall('<tr><td>(.*?)</td><td>(.*?)</td><td>(.*?)</td><td>(.*?)</td><td>(.*?)</td><td>(.*?)</td></tr>',
-                    content)
+    ss = re.findall('<tr><td>(.*?)</td><td>(.*?)</td><td>(.*?)</td><td>(.*?)</td><td>(.*?)</td><td>(.*?)</td></tr>', content)
 
     result = []
     idx = 0
@@ -52,16 +57,35 @@ def getHistory(company):
         print(data)
         result.append(data)
 
-    # fo = open('/Users/xy/Desktop/stock/' + company.name + '.json', 'w')
-    fo = open('d:\\stock\\' + company.name + '.json', 'w')
+    fo = open(file_dir + '/stock/' + company.name + '.json', 'w')
     fo.write(json.dumps(result))
     fo.close()
     print('抓取{}公司数据结束，文件位置：{}'.format(company.name, fo.name))
 
 
 if __name__ == '__main__':
-    for c in Company:
-        getHistory(c)
-        time.sleep(2)
+    # ll = []
+    # for c in Company:
+    #     ll.append(c)
+    # 
+    # for l in ll:
+    #     print(l)
+    #     if l.name == 'ali':
+    #         ll.append(Company.twitter)
+    #     if l.name == 'jd':
+    #         ll.append(Company.ali)
 
+    s = os.popen('cd ' + file_dir + ';ls stock/').readlines()
+    print(s)
+    s = os.popen('cd ' + file_dir + ';rm -rf stock/*').readlines()
+    print(s)
+    s = os.popen('cd ' + file_dir + ';rm -r stock.zip').readlines()
+    print(s)
+
+    for c in Company:
+        get_history(c)
+        time.sleep(2)
         # todo 超时重试
+
+    s = os.popen('cd ' + file_dir + ';zip -r stock.zip stock').readlines()
+    print(s)
