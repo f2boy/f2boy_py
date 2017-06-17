@@ -14,26 +14,33 @@ file_dir = '/home/tmp'
 
 
 class Company(Enum):
-    ali = 'baba'
-    jd = 'jd'
-    momo = 'momo'
-    weibo = 'wb'
-    snap = 'snap'
-    liebao = 'cmcm'
-    twitter = 'twtr'
-    yy = 'yy'
-    athm = 'athm'
-    sohu = 'sohu'
-    wuba = 'wuba'
+    ali = {'code': 'baba', 'name': '阿里巴巴'}
+    jd = {'code': 'jd', 'name': '京东'}
+    momo = {'code': 'momo', 'name': '陌陌'}
+    weibo = {'code': 'wb', 'name': '新浪微博'}
+    snap = {'code': 'snap', 'name': 'Snap'}
+    liebao = {'code': 'cmcm', 'name': '猎豹移动'}
+    twitter = {'code': 'twtr', 'name': '推特'}
+    yy = {'code': 'yy', 'name': '歪歪'}
+    athm = {'code': 'athm', 'name': '汽车之家'}
+    sohu = {'code': 'sohu', 'name': '搜狐'}
+    wuba = {'code': 'wuba', 'name': '58同城'}
+
+
+def format_now():
+    return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
 
 
 def get_history(company):
     print()
-    print('开始抓取{}公司数据'.format(company.name))
-    url = 'http://www.nasdaq.com/symbol/' + company.value + '/historical'
+    filename = company.name
+    code = company.value['code']
+    name = company.value['name']
+    print(format_now(), '开始抓取【{}】数据'.format(name))
+    url = 'http://www.nasdaq.com/symbol/' + code + '/historical'
     req = urllib.request.Request(url)
     req.add_header("Content-Type", "application/json;charset=utf-8")
-    response = urllib.request.urlopen(req, ('2y|false|' + company.value.upper()).encode(encoding='UTF8'))
+    response = urllib.request.urlopen(req, ('2y|false|' + code.upper()).encode(encoding='UTF8'), timeout=10)
     html = response.read().decode('utf-8')
     html = html.replace('\n', '').replace('\r', '').replace('\t', '').replace('\\', '')
 
@@ -56,38 +63,37 @@ def get_history(company):
         data.append(s[4])
         data.append(s[2])
         data.append(s[3])
-        print(data)
+        # print(data)
         result.append(data)
 
-    fo = open(file_dir + '/stock/' + company.name + '.json', 'w')
+    fo = open(file_dir + '/stock/' + filename + '.json', 'w')
     fo.write(json.dumps(result))
     fo.close()
-    print('抓取{}公司数据结束，文件位置：{}'.format(company.name, fo.name))
+    print(format_now(), '抓取【{}】数据结束，文件位置：{}'.format(name, fo.name))
 
 
 if __name__ == '__main__':
-    # ll = []
-    # for c in Company:
-    #     ll.append(c)
-    # 
-    # for l in ll:
-    #     print(l)
-    #     if l.name == 'ali':
-    #         ll.append(Company.twitter)
-    #     if l.name == 'jd':
-    #         ll.append(Company.ali)
+    rs = os.popen('cd ' + file_dir + ';ls stock/').readlines()
+    print(format_now(), rs)
+    os.popen('cd ' + file_dir + ';rm -rf stock/*')
+    os.popen('cd ' + file_dir + ';rm -r stock.zip')
 
-    s = os.popen('cd ' + file_dir + ';ls stock/').readlines()
-    print(s)
-    s = os.popen('cd ' + file_dir + ';rm -rf stock/*').readlines()
-    print(s)
-    s = os.popen('cd ' + file_dir + ';rm -r stock.zip').readlines()
-    print(s)
-
+    companies = []
     for c in Company:
-        get_history(c)
-        time.sleep(2)
-        # todo 超时重试
+        companies.append({'company': c, 'times': 0})
 
-    s = os.popen('cd ' + file_dir + ';zip -r stock.zip stock').readlines()
-    print(s)
+    for ele in companies:
+        _c = ele['company']
+        try:
+            get_history(_c)
+        except Exception as e:
+            print(format_now(), '抓取【{}】数据异常'.format(_c.value['name']), e)
+            times = ele['times']
+            if times < 5:
+                print(format_now(), '【{}】加入重试队列'.format(_c.value['name']))
+                companies.append({'company': _c, 'times': times + 1})
+        finally:
+            time.sleep(2)
+
+    rs = os.popen('cd ' + file_dir + ';zip -r stock.zip stock').readlines()
+    print(format_now(), '压缩抓取数据', rs)
