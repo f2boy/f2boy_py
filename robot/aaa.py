@@ -73,10 +73,13 @@ def get_history(company):
 
 
 if __name__ == '__main__':
-    rs = os.popen('cd ' + file_dir + ';ls stock/').readlines()
-    print(format_now(), rs)
+    print()
+    print(format_now(), '--------------------------------------------新一轮抓取开始了!--------------------------------------------\n')
+
     os.popen('cd ' + file_dir + ';rm -rf stock/*')
-    os.popen('cd ' + file_dir + ';rm -r stock.zip')
+    os.popen('cd ' + file_dir + ';rm -rf stock.zip')
+    print(format_now(), '删除旧数据成功')
+    print(format_now(), '开始抓了啊……')
 
     companies = []
     for c in Company:
@@ -95,5 +98,8 @@ if __name__ == '__main__':
         finally:
             time.sleep(2)
 
+    print()
     rs = os.popen('cd ' + file_dir + ';zip -r stock.zip stock').readlines()
     print(format_now(), '压缩抓取数据', rs)
+    print()
+    print(format_now(), '--------------------------------------------本次抓取工作结束--------------------------------------------\n')
