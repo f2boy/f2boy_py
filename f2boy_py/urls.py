@@ -30,5 +30,5 @@ urlpatterns = [
     url(r'^polls/', include('polls.urls')),
     url(r'^wechat/', include('apps.wechat.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^favicon.ico$', RedirectView.as_view(url='http://odwsp46yw.bkt.clouddn.com/images/favicon.ico')),
+    # url(r'^favicon.ico$', RedirectView.as_view(url='http://odwsp46yw.bkt.clouddn.com/images/favicon.ico')),
 ]
