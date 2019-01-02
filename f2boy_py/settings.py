@@ -61,6 +61,7 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'apps/poem/templates'),
             os.path.join(BASE_DIR, 'apps/homepage/templates'),
             os.path.join(BASE_DIR, 'apps/message/templates'),
+            os.path.join(BASE_DIR, 'apps/wife/templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {

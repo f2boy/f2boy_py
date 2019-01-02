@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.views.generic.base import RedirectView
 
 from apps.homepage.views import homepage
-
+from apps.wife.views import wife
 from f2boy_py import settings
 
 admin.autodiscover()
@@ -30,5 +30,6 @@ urlpatterns = [
     url(r'^polls/', include('polls.urls')),
     url(r'^wechat/', include('apps.wechat.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^wife/', wife),
     # url(r'^favicon.ico$', RedirectView.as_view(url='http://odwsp46yw.bkt.clouddn.com/images/favicon.ico')),
 ]
