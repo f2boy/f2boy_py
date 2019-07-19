@@ -89,5 +89,10 @@ ENV/
 .ropeproject
 
 
+# IntelliJ IDEA Project files
+.idea
+*.iml
+
+
 # 自己加的
 db.sqlite3
